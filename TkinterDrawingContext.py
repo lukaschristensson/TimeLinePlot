@@ -42,8 +42,8 @@ class TkinterWindowDrawingContext(AbstractDrawingContext, tkinter.Tk):
         self.time_line_canvas_width = time_line_width
         self.time_line_canvas_height = time_line_height
 
-    def draw_polygon(self, color, *points):
-        self.canvas.create_polygon(points, fill=color)
+    def draw_polygon(self, color, border_color=None, border_width=0, *points):
+        self.canvas.create_polygon(points, outline=border_color, width=border_width, fill=color)
 
     def clear(self):
         self.canvas.delete(tkinter.ALL)
@@ -90,4 +90,5 @@ if __name__ == '__main__':
         time_line_color='#bb86fc',
         entry_frame_color='#bb86fc',
         entry_text_color='#e5e5e5',
+        entry_card_background='#1f1f1f'
     ).draw(TkinterWindowDrawingContext(1000, 400, title='companies switching versions', time_line_width=3000)).mainloop()

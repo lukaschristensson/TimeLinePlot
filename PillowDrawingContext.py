@@ -4,11 +4,9 @@ from TimeLinePlot import AbstractDrawingContext, TimeLinePlot
 
 class PillowDrawingContext(AbstractDrawingContext):
 
-    def draw_polygon(self, color, *points):
-        self.draw.polygon(list(points), fill=color)
-
     def save(self):
         self.image.save('plot.png')
+
     def draw_text(self, x, y, text, font, color, rotation=0, anchor=''):
         if isinstance(font, str):
             # 1.5 size seems to match up with tkinter afaict
@@ -40,6 +38,9 @@ class PillowDrawingContext(AbstractDrawingContext):
         elif 'e' in anchor:
             x -= image_size[0]/2
         self.image.paste(text_image, (int(x), int(y)), text_image)
+
+    def draw_polygon(self, color, border_color=None, border_width=0, *points):
+        self.draw.polygon(list(points), fill=color, outline=border_color, width=border_width)
 
     def get_width(self):
         return self.size[0]
@@ -82,4 +83,11 @@ if __name__ == '__main__':
         {'time': '2001-02-28T10:01:00', 'message': 'Switched versions:\nv3.0.1 to v4.0.1', 'title': 'Company D'},
         {'time': '2011-05-10T20:58:00', 'message': 'Switched versions:\nv2.0.1 to v5.0.1', 'title': 'Company E'},
     ]
-    TimeLinePlot(data=test_data.copy()).draw(PillowDrawingContext()).save()
+    TimeLinePlot(
+        data=test_data.copy(),
+        background_color='#0c0c0c',
+        time_line_color='#bb86fc',
+        entry_frame_color='#bb86fc',
+        entry_text_color='#e5e5e5',
+        entry_card_background='#1f1f1f'
+    ).draw(PillowDrawingContext()).save()

@@ -18,7 +18,7 @@ class AbstractDrawingContext:   # quack quack
         raise NotImplementedError
     def draw_rect(self, x0, y0, x1, y1, color):
         raise NotImplementedError
-    def draw_polygon(self, color, *points):
+    def draw_polygon(self, color, border_color, border_width, *points):
         raise NotImplementedError
     def clear(self):
         raise NotImplementedError
@@ -119,6 +119,8 @@ class TimeLinePlot:
 
             context.draw_polygon(
                 self.entry_card_background,
+                self.entry_frame_color,
+                entry_frame_border_width,
                 (x_pos, card_y_pos),
                 (x_pos + entry_width - entry_frame_corner_size, card_y_pos),
                 (x_pos + entry_width, card_y_pos + entry_frame_corner_size),
@@ -127,33 +129,6 @@ class TimeLinePlot:
             )
             context.draw_line(x_pos, y_pos, x_pos, card_y_pos, self.entry_frame_color)
 
-            context.draw_line(
-                x_pos, card_y_pos,
-                x_pos+entry_width - entry_frame_corner_size,
-                card_y_pos,
-                self.entry_frame_color
-            )
-            context.draw_line(
-                x_pos+entry_width - entry_frame_corner_size,
-                card_y_pos,
-                x_pos+entry_width,
-                card_y_pos+entry_frame_corner_size,
-                self.entry_frame_color
-            )
-            context.draw_line(
-                x_pos+entry_width,
-                card_y_pos+entry_frame_corner_size,
-                x_pos+entry_width,
-                card_y_pos+entry_height,
-                self.entry_frame_color
-            )
-            context.draw_line(
-                x_pos,
-                card_y_pos+entry_height,
-                x_pos+entry_width,
-                card_y_pos+entry_height,
-                self.entry_frame_color
-            )
             context.draw_line(
                 x_pos+entry_width - entry_frame_corner_size - entry_frame_border_width*2,
                 card_y_pos + entry_frame_border_width*2,
