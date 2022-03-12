@@ -18,7 +18,7 @@ class AbstractDrawingContext:   # quack quack
         raise NotImplementedError
     def draw_rect(self, x0, y0, x1, y1, color):
         raise NotImplementedError
-    def draw_polygon(self, points, color):
+    def draw_polygon(self, color, *points):
         raise NotImplementedError
     def clear(self):
         raise NotImplementedError

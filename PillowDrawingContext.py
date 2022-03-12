@@ -4,6 +4,9 @@ from TimeLinePlot import AbstractDrawingContext, TimeLinePlot
 
 class PillowDrawingContext(AbstractDrawingContext):
 
+    def draw_polygon(self, color, *points):
+        self.draw.polygon(list(points), fill=color)
+
     def save(self):
         self.image.save('plot.png')
     def draw_text(self, x, y, text, font, color, rotation=0, anchor=''):
@@ -18,7 +21,6 @@ class PillowDrawingContext(AbstractDrawingContext):
             for line in lines:
                 self.draw_text(x, y + lines.index(line)*text_size[1], line, font, color, rotation, anchor)
             return
-
 
         # draw the text on a temporary image, rotate that image and paste it on the main image
         text_image = Image.new(mode='RGBA', size=text_size)
